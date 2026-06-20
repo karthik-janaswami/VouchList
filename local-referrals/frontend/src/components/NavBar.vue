@@ -191,14 +191,15 @@ function handleLogout() {
   }
 }
 @media (max-width: 699px) {
-  .metro { display: none; }
   .nav-user { display: none; }
+  .brand-sub { display: none; }
   .masthead-row {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto 1fr auto;
     grid-template-rows: auto auto;
   }
   .brand { grid-row: 1; grid-column: 1; }
-  .nav-actions { grid-row: 1; grid-column: 2; }
-  .search-wrap { grid-row: 2; grid-column: 1 / 3; min-width: 0; }
+  .metro { grid-row: 1; grid-column: 2; }
+  .nav-actions { grid-row: 1; grid-column: 3; }
+  .search-wrap { grid-row: 2; grid-column: 1 / 4; min-width: 0; }
 }
 </style>
