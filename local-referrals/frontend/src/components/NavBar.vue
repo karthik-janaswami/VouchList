@@ -23,11 +23,6 @@
           placeholder="Find a trusted contractor, plumber…"
           aria-label="Search"
         />
-        <button v-if="ui.query" class="clear-btn" @click="ui.query = ''" aria-label="Clear search">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <path d="M18 6 6 18M6 6l12 12"/>
-          </svg>
-        </button>
       </div>
 
       <div class="nav-actions">
@@ -167,26 +162,10 @@ function handleLogout() {
 }
 .search-wrap input {
   padding-left: 38px;
-  padding-right: 36px;
   min-height: 40px;
   width: 100%;
   font-size: 16px;
 }
-.clear-btn {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  padding: 0;
-  min-height: unset;
-  color: var(--ink-faint);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-.clear-btn:hover { color: var(--ink); }
 
 /* Nav actions */
 .nav-actions {
