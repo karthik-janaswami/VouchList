@@ -1,0 +1,9 @@
+{
+  "name": "vouchlist",
+  "version": "1.0.0",
+  "engines": { "node": ">=26.0.0" },
+  "scripts": {
+    "build": "cd backend && npm install && cd ../frontend && npm install && npm run build",
+    "start": "cd backend && node server.js"
+  }
+}
