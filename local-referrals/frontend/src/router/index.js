@@ -26,4 +26,10 @@ router.beforeEach((to) => {
   }
 })
 
+router.afterEach((to) => {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'page_view', { page_path: to.fullPath })
+  }
+})
+
 export default router
