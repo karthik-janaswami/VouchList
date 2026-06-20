@@ -115,7 +115,8 @@
           >{{ submitting ? 'Submitting…' : 'Submit Review' }}</button>
         </div>
         <div v-else-if="!auth.isLoggedIn" class="login-cta">
-          <p>Have you used this service? <RouterLink to="/login">Log in to rate it</RouterLink></p>
+          <p>Have you used this service?</p>
+          <RouterLink to="/login">Log in to leave a rating</RouterLink>
         </div>
         <p v-else-if="hasReviewed" class="login-prompt already">You've already reviewed this referral.</p>
 
@@ -370,8 +371,8 @@ onMounted(loadData)
   border-radius: var(--radius);
   margin-bottom: 20px;
 }
-.login-cta p { margin: 0; font-size: 14px; color: var(--ink-soft); }
-.login-cta a { font-weight: 600; color: var(--accent); }
+.login-cta p { margin: 0 0 6px; font-size: 14px; font-weight: 600; color: var(--ink); }
+.login-cta a { font-size: 13px; font-weight: 600; color: var(--accent); }
 .reviews-section { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--line-soft); }
 .login-prompt { margin-top: 16px; color: var(--ink-soft); font-size: 14px; }
 .login-prompt.already { font-style: italic; }
