@@ -1,6 +1,10 @@
 <template>
   <div class="page">
     <div class="card auth-card">
+      <RouterLink to="/" class="back-home">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        Back to home
+      </RouterLink>
       <h1>Create Account</h1>
       <form @submit.prevent="submit">
         <div class="form-row">
@@ -63,6 +67,17 @@ async function submit() {
 .page { max-width: 1240px; margin: 0 auto; padding: clamp(22px,3vw,38px) clamp(16px,4vw,44px) 90px; }
 .auth-card { max-width: 400px; margin: 0 auto; }
 h1 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.6rem; letter-spacing: -0.015em; margin-bottom: 20px; }
+.back-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+.back-home:hover { color: var(--accent); text-decoration: none; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
 .full-width { width: 100%; border-radius: 100px; }
 .switch { margin-top: 16px; text-align: center; font-size: 13px; color: var(--ink-soft); }
