@@ -193,14 +193,31 @@ function handleLogout() {
 @media (max-width: 699px) {
   .nav-user { display: none; }
   .brand-sub { display: none; }
-  .dot { display: none; }
   .masthead-row {
     grid-template-columns: auto 1fr auto;
     grid-template-rows: auto auto;
   }
   .brand { grid-row: 1; grid-column: 1; }
-  .metro { grid-row: 1; grid-column: 2; justify-self: stretch; }
   .nav-actions { grid-row: 1; grid-column: 3; }
-  .search-wrap { grid-row: 2; grid-column: 1 / 4; min-width: 0; }
+  .metro {
+    grid-row: 2;
+    grid-column: 1;
+    border-radius: 100px 0 0 100px;
+    border-right: none;
+    padding: 0 8px 0 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    height: 40px;
+    align-self: stretch;
+  }
+  .search-wrap {
+    grid-row: 2;
+    grid-column: 2 / 4;
+    min-width: 0;
+  }
+  .search-wrap input {
+    border-radius: 0 100px 100px 0;
+    border-left: none;
+  }
 }
 </style>
