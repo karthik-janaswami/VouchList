@@ -12,9 +12,12 @@ const insert = db.prepare(`
   VALUES (@name, @category, @description, @phone, @email, @website, @metro_area, @city, @referred_by)
 `);
 
-const insertMany = db.transaction(items => {
-  for (const item of items) insert.run(item);
-});
-
-insertMany(data);
+db.exec('BEGIN');
+try {
+  for (const item of data) insert.run(item);
+  db.exec('COMMIT');
+} catch (e) {
+  db.exec('ROLLBACK');
+  throw e;
+}
 console.log(`Seeded ${data.length} referrals.`);
