@@ -83,6 +83,7 @@ function handleLogout() {
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
   padding: 10px clamp(12px, 4vw, 44px);
+  overflow-x: hidden;
 }
 .masthead-row {
   display: grid;
@@ -191,9 +192,12 @@ function handleLogout() {
 @media (max-width: 699px) {
   .metro { display: none; }
   .nav-user { display: none; }
-  .masthead-row { grid-template-columns: 1fr auto; }
-  .brand { grid-column: 1; }
-  .nav-actions { grid-column: 2; }
-  .search-wrap { grid-column: 1 / -1; }
+  .masthead-row {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+  }
+  .brand { grid-row: 1; grid-column: 1; }
+  .nav-actions { grid-row: 1; grid-column: 2; }
+  .search-wrap { grid-row: 2; grid-column: 1 / 3; min-width: 0; }
 }
 </style>
