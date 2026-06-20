@@ -20,7 +20,7 @@
         <input
           v-model="ui.query"
           type="search"
-          placeholder="Search by name, category…"
+          placeholder="Find a trusted contractor, plumber…"
           aria-label="Search"
         />
       </div>
