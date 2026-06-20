@@ -16,6 +16,9 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// Auto-seed if DB is empty
+require('./db/seed');
+
 app.use('/api/auth', authRoutes);
 app.use('/api/referrals', referralRoutes);
 app.use('/api/referrals/:id/reviews', reviewRoutes);
