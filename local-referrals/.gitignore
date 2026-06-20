@@ -1,5 +1,7 @@
 node_modules/
 frontend/dist/
 backend/db/referrals.db
+backend/db/referrals.db-shm
+backend/db/referrals.db-wal
 .env
 *.local
