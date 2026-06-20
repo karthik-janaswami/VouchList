@@ -164,6 +164,7 @@ function handleLogout() {
   padding-left: 38px;
   min-height: 40px;
   width: 100%;
+  font-size: 16px;
 }
 
 /* Nav actions */
