@@ -1,7 +1,7 @@
 <template>
-  <article class="card">
+  <article class="card" @click="$router.push(`/referrals/${referral.id}`)" style="cursor:pointer">
     <div class="card-top">
-      <RouterLink :to="`/referrals/${referral.id}`" class="card-name">{{ referral.name }}</RouterLink>
+      <span class="card-name">{{ referral.name }}</span>
       <span v-if="referral.avg_rating >= 4" class="top-pick">★ Top pick</span>
     </div>
 
@@ -50,6 +50,8 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
 defineProps({ referral: Object })
 defineEmits(['tag-click'])
 </script>
@@ -77,10 +79,10 @@ defineEmits(['tag-click'])
   letter-spacing: -0.02em;
   line-height: 1.2;
   color: var(--ink);
-  text-decoration: none;
   flex: 1;
+  transition: color .2s var(--ease);
 }
-.card-name:hover { color: var(--accent); }
+.card:hover .card-name { color: var(--accent); }
 .top-pick {
   flex: none;
   font-size: 11.5px;
