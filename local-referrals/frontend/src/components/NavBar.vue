@@ -177,21 +177,17 @@ function handleLogout() {
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--line);
+  background: none;
   border: none;
-  padding: 0;
+  padding: 4px;
   min-height: unset;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  color: var(--ink-soft);
+  color: var(--ink-faint);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
-.clear-btn:hover { background: var(--ink-faint); color: #fff; }
+.clear-btn:hover { color: var(--ink); }
 
 /* Nav actions */
 .nav-actions {
