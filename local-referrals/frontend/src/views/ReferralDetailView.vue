@@ -7,6 +7,8 @@
       Back
     </button>
 
+    <div v-if="isNew" class="success-msg">Referral submitted successfully!</div>
+
     <div v-if="loading" class="state-msg">Loading…</div>
     <div v-else-if="!referral" class="state-msg">Referral not found.</div>
     <template v-else>
@@ -147,6 +149,7 @@ const route = useRoute()
 const router = useRouter()
 const auth = useAuthStore()
 
+const isNew = ref(route.query.new === '1')
 const referral = ref(null)
 const reviews = ref([])
 const loading = ref(true)
@@ -206,6 +209,15 @@ onMounted(loadData)
 </script>
 
 <style scoped>
+.success-msg {
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+}
 .back {
   display: inline-flex;
   align-items: center;
