@@ -50,10 +50,6 @@
             <input v-model="form.city" placeholder="e.g. Pleasanton, Dublin" />
           </div>
         </div>
-        <div class="form-group">
-          <label>Referred By</label>
-          <input v-model="form.referred_by" placeholder="Who recommended them? (e.g. Priya S., neighbor on Oak St.)" />
-        </div>
         <div class="form-row">
           <div class="form-group">
             <label>Phone</label>
@@ -144,7 +140,7 @@ const metroSelect = ref('Bay Area, CA')
 const metroAreas = ref(['Bay Area, CA'])
 const form = ref({
   name: '', category: '', metro_area: 'Bay Area, CA', city: '',
-  submitted_by: '', referred_by: '', description: '', phone: '', email: '', website: ''
+  submitted_by: '', description: '', phone: '', email: '', website: ''
 })
 
 watch(categorySelect, val => {
