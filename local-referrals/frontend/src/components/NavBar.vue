@@ -13,28 +13,27 @@
         </select>
       </span>
 
-      <div class="search-row">
-        <div class="search-wrap">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+      <div class="search-wrap">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+        <input
+          v-model="ui.query"
+          type="text"
+          placeholder="Find a trusted contractor, plumber…"
+          aria-label="Search"
+        />
+        <button v-if="ui.query" class="clear-btn" @click="ui.query = ''" aria-label="Clear search">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 6 6 18M6 6l12 12"/>
           </svg>
-          <input
-            v-model="ui.query"
-            type="text"
-            placeholder="Find a trusted contractor, plumber…"
-            aria-label="Search"
-          />
-          <button v-if="ui.query" class="clear-btn" @click="ui.query = ''" aria-label="Clear search">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M18 6 6 18M6 6l12 12"/>
-            </svg>
-          </button>
-        </div>
-        <RouterLink to="/submit" class="add-btn" aria-label="Add a referral">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-          <span class="add-label">Vouch</span>
-        </RouterLink>
+        </button>
       </div>
+
+      <RouterLink to="/submit" class="add-btn" aria-label="Add a referral">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        <span class="add-label">Vouch</span>
+      </RouterLink>
     </div>
   </header>
 </template>
@@ -148,17 +147,9 @@ function handleLogout() {
   outline: none;
 }
 
-/* Search row */
-.search-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  grid-column: 1 / -1;
-}
+/* Search */
 .search-wrap {
   position: relative;
-  flex: 1;
-  min-width: 0;
 }
 .search-wrap svg {
   position: absolute;
@@ -215,19 +206,23 @@ function handleLogout() {
 
 @media (min-width: 700px) {
   .masthead-row {
-    grid-template-columns: auto auto 1fr;
+    grid-template-columns: auto auto 1fr auto;
     grid-template-rows: auto;
   }
-  .search-row {
-    grid-column: auto;
+  .search-wrap {
     max-width: 500px;
   }
 }
 @media (max-width: 699px) {
   .brand-sub { display: none; }
   .masthead-row {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto 1fr auto;
     grid-template-rows: auto auto;
+  }
+  .brand { grid-row: 1; grid-column: 1; }
+  .add-btn {
+    grid-row: 1;
+    grid-column: 3;
   }
   .metro {
     grid-row: 2;
@@ -240,9 +235,9 @@ function handleLogout() {
     height: 40px;
     align-self: stretch;
   }
-  .search-row {
+  .search-wrap {
     grid-row: 2;
-    grid-column: 2;
+    grid-column: 2 / 4;
   }
   .search-wrap input {
     border-radius: 0 100px 100px 0;

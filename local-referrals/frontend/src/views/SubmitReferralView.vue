@@ -1,6 +1,7 @@
 <template>
   <div class="page">
     <div class="card form-card">
+      <RouterLink to="/" class="back-link">&larr; Back</RouterLink>
       <h1>Add a Referral</h1>
       <p class="subtitle">Share a trusted service provider with your community</p>
 
@@ -190,6 +191,16 @@ async function submit() {
 <style scoped>
 .page { max-width: 1240px; margin: 0 auto; padding: clamp(22px,3vw,38px) clamp(16px,4vw,44px) 90px; }
 .form-card { max-width: 600px; margin: 0 auto; }
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-decoration: none;
+  margin-bottom: 12px;
+}
+.back-link:hover { color: var(--accent); }
 h1 { font-weight: 800; font-size: 1.6rem; letter-spacing: -0.02em; margin-bottom: 4px; }
 .subtitle { color: var(--ink-soft); margin-bottom: 24px; font-size: 13px; }
 .form-row { display: grid; grid-template-columns: 1fr; gap: 0; }
