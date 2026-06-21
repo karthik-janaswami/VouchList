@@ -4,11 +4,7 @@ import { useAuthStore } from '../stores/auth.js'
 const routes = [
   { path: '/', component: () => import('../views/HomeView.vue') },
   { path: '/referrals/:id', component: () => import('../views/ReferralDetailView.vue') },
-  {
-    path: '/submit',
-    component: () => import('../views/SubmitReferralView.vue'),
-    meta: { requiresAuth: true }
-  },
+  { path: '/submit', component: () => import('../views/SubmitReferralView.vue') },
   { path: '/login', component: () => import('../views/LoginView.vue') },
   { path: '/register', component: () => import('../views/RegisterView.vue') }
 ]

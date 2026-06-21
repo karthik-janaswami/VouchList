@@ -2,9 +2,9 @@
   <div class="review">
     <div class="review-header">
       <div class="reviewer-info">
-        <span class="avatar">{{ review.username[0].toUpperCase() }}</span>
+        <span class="avatar">{{ (review.reviewer_name || review.username || '?')[0].toUpperCase() }}</span>
         <div>
-          <strong class="username">{{ review.username }}</strong>
+          <strong class="username">{{ review.reviewer_name || review.username }}</strong>
           <span class="date">{{ formattedDate }}</span>
         </div>
       </div>

@@ -55,6 +55,8 @@ const migrations = [
   'ALTER TABLE referrals ADD COLUMN referred_by TEXT',
   'ALTER TABLE users ADD COLUMN first_name TEXT',
   'ALTER TABLE users ADD COLUMN last_name TEXT',
+  'ALTER TABLE reviews ADD COLUMN reviewer_name TEXT',
+  'ALTER TABLE referrals ADD COLUMN submitted_by TEXT',
 ];
 for (const sql of migrations) {
   try { db.exec(sql) } catch { /* column already exists */ }

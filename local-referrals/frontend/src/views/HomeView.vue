@@ -48,8 +48,7 @@
       <div v-else class="empty-state">
         <h3>No entries yet</h3>
         <p>Be the first to add a {{ ui.activeCat }} referral.</p>
-        <RouterLink v-if="auth.isLoggedIn" to="/submit" class="btn btn-primary">Add one</RouterLink>
-        <RouterLink v-else to="/register" class="btn btn-primary">Sign up to add one</RouterLink>
+        <RouterLink to="/submit" class="btn btn-primary">Add one</RouterLink>
       </div>
     </template>
 

@@ -31,15 +31,7 @@
       </div>
 
       <div class="nav-actions">
-        <RouterLink v-if="auth.isLoggedIn" to="/submit" class="btn btn-primary btn-sm">+ Add</RouterLink>
-        <template v-if="auth.isLoggedIn">
-          <span class="nav-user">{{ auth.user.first_name || auth.user.username }}</span>
-          <button class="btn btn-secondary btn-sm" @click="handleLogout">Logout</button>
-        </template>
-        <template v-else>
-          <RouterLink to="/login" class="btn btn-secondary btn-sm">Login</RouterLink>
-          <RouterLink to="/register" class="btn btn-primary btn-sm">Sign up</RouterLink>
-        </template>
+        <RouterLink to="/submit" class="btn btn-primary btn-sm">+ Add</RouterLink>
       </div>
     </div>
   </header>
@@ -62,7 +54,9 @@ onMounted(async () => {
     const { data } = await axios.get('/api/referrals/meta')
     metroAreas.value = data.metro_areas || []
     if (metroAreas.value.length && !ui.metro) {
-      ui.metro = metroAreas.value[0]
+      ui.metro = metroAreas.value.includes('Bay Area, CA')
+        ? 'Bay Area, CA'
+        : metroAreas.value[0]
     }
   } catch { /* ignore */ }
 })

@@ -1,6 +1,6 @@
 const express = require('express');
 const db = require('../db/database');
-const { requireAuth } = require('../middleware/auth');
+const { requireAuth, optionalAuth } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -50,17 +50,20 @@ router.get('/:id', (req, res) => {
   res.json(referral);
 });
 
-// POST /api/referrals — auth required
-router.post('/', requireAuth, (req, res) => {
-  const { name, category, description, phone, email, website, metro_area, city, referred_by } = req.body;
+// POST /api/referrals — open (auth optional)
+router.post('/', optionalAuth, (req, res) => {
+  const { name, category, description, phone, email, website, metro_area, city, referred_by, submitted_by } = req.body;
   if (!name || !category || !metro_area) {
     return res.status(400).json({ error: 'name, category, and metro_area are required' });
   }
+  if (!submitted_by || !submitted_by.trim()) {
+    return res.status(400).json({ error: 'Your name is required' });
+  }
   const result = db
     .prepare(
-      'INSERT INTO referrals (user_id, name, category, description, phone, email, website, metro_area, city, referred_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+      'INSERT INTO referrals (user_id, name, category, description, phone, email, website, metro_area, city, referred_by, submitted_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
     )
-    .run(req.user.id, name, category, description || null, phone || null, email || null, website || null, metro_area, city || null, referred_by || null);
+    .run(req.user?.id || null, name, category, description || null, phone || null, email || null, website || null, metro_area, city || null, referred_by || null, submitted_by.trim());
   const referral = db.prepare('SELECT * FROM referrals WHERE id = ?').get(result.lastInsertRowid);
   res.status(201).json(referral);
 });

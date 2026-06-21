@@ -75,8 +75,12 @@
       <!-- Reviews -->
       <div class="reviews-card">
         <!-- Add review form — shown first -->
-        <div v-if="auth.isLoggedIn && !hasReviewed" class="add-review">
+        <div v-if="!hasReviewed" class="add-review">
           <h3>Rate this business</h3>
+          <div class="form-group">
+            <label>Your Name *</label>
+            <input v-model="newReview.reviewer_name" placeholder="e.g. John Smith" required />
+          </div>
           <div class="dual-rating">
             <div class="rating-field">
               <div class="rating-label price">💰 Price</div>
@@ -110,13 +114,9 @@
           <p v-if="reviewError" class="error-msg">{{ reviewError }}</p>
           <button
             class="btn btn-primary"
-            :disabled="submitting || !newReview.price_rating || !newReview.quality_rating"
+            :disabled="submitting || !newReview.reviewer_name.trim() || !newReview.price_rating || !newReview.quality_rating"
             @click="submitReview"
           >{{ submitting ? 'Submitting…' : 'Submit Review' }}</button>
-        </div>
-        <div v-else-if="!auth.isLoggedIn" class="login-cta">
-          <p>Have you used this service?</p>
-          <RouterLink to="/login">Log in to leave a rating</RouterLink>
         </div>
         <p v-else-if="hasReviewed" class="login-prompt already">You've already reviewed this referral.</p>
 
@@ -128,7 +128,7 @@
           </h2>
           <ReviewItem v-for="r in reviews" :key="r.id" :review="r" @delete="deleteReview" />
         </div>
-        <div v-else-if="hasReviewed || !auth.isLoggedIn" class="no-reviews">No reviews yet.</div>
+        <div v-else-if="hasReviewed" class="no-reviews">No reviews yet.</div>
       </div>
 
     </template>
@@ -152,7 +152,7 @@ const reviews = ref([])
 const loading = ref(true)
 const submitting = ref(false)
 const reviewError = ref('')
-const newReview = ref({ price_rating: 0, quality_rating: 0, comment: '' })
+const newReview = ref({ reviewer_name: '', price_rating: 0, quality_rating: 0, comment: '' })
 
 const hasReviewed = computed(() =>
   auth.user && reviews.value.some(r => r.user_id === auth.user.id)
@@ -177,7 +177,7 @@ async function submitReview() {
   try {
     const { data } = await axios.post(`/api/referrals/${route.params.id}/reviews`, newReview.value)
     reviews.value.unshift(data)
-    newReview.value = { price_rating: 0, quality_rating: 0, comment: '' }
+    newReview.value = { reviewer_name: '', price_rating: 0, quality_rating: 0, comment: '' }
     const refRes = await axios.get(`/api/referrals/${route.params.id}`)
     referral.value = refRes.data
   } catch (err) {

@@ -1,6 +1,6 @@
 const express = require('express');
 const db = require('../db/database');
-const { requireAuth } = require('../middleware/auth');
+const { requireAuth, optionalAuth } = require('../middleware/auth');
 
 const router = express.Router({ mergeParams: true });
 
@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
   const reviews = db
     .prepare(
       `SELECT r.*, u.username FROM reviews r
-       JOIN users u ON r.user_id = u.id
+       LEFT JOIN users u ON r.user_id = u.id
        WHERE r.referral_id = ?
        ORDER BY r.created_at DESC`
     )
@@ -17,11 +17,14 @@ router.get('/', (req, res) => {
   res.json(reviews);
 });
 
-// POST /api/referrals/:id/reviews — auth required
-router.post('/', requireAuth, (req, res) => {
-  const { price_rating, quality_rating, comment } = req.body;
+// POST /api/referrals/:id/reviews — open (auth optional)
+router.post('/', optionalAuth, (req, res) => {
+  const { price_rating, quality_rating, comment, reviewer_name } = req.body;
   const referralId = parseInt(req.params.id);
 
+  if (!reviewer_name || !reviewer_name.trim()) {
+    return res.status(400).json({ error: 'Your name is required' });
+  }
   if (!price_rating || price_rating < 1 || price_rating > 5) {
     return res.status(400).json({ error: 'price_rating must be between 1 and 5' });
   }
@@ -37,16 +40,16 @@ router.post('/', requireAuth, (req, res) => {
 
     const result = db
       .prepare(
-        'INSERT INTO reviews (referral_id, user_id, rating, price_rating, quality_rating, comment) VALUES (?, ?, ?, ?, ?, ?)'
+        'INSERT INTO reviews (referral_id, user_id, rating, price_rating, quality_rating, comment, reviewer_name) VALUES (?, ?, ?, ?, ?, ?, ?)'
       )
-      .run(referralId, req.user.id, overall, price_rating, quality_rating, comment || null);
+      .run(referralId, req.user?.id || null, overall, price_rating, quality_rating, comment || null, reviewer_name.trim());
 
     recalcAverages(referralId);
 
     const review = db
       .prepare(
         `SELECT r.*, u.username FROM reviews r
-         JOIN users u ON r.user_id = u.id WHERE r.id = ?`
+         LEFT JOIN users u ON r.user_id = u.id WHERE r.id = ?`
       )
       .get(result.lastInsertRowid);
     res.status(201).json(review);

@@ -6,6 +6,10 @@
 
       <form @submit.prevent="submit">
         <div class="form-group">
+          <label>Your Name *</label>
+          <input v-model="form.submitted_by" placeholder="e.g. John Smith" required />
+        </div>
+        <div class="form-group">
           <label>Business / Provider Name *</label>
           <input v-model="form.name" placeholder="e.g. Joe's Plumbing" required />
         </div>
@@ -139,7 +143,7 @@ const metroSelect = ref('Bay Area, CA')
 const metroAreas = ref(['Bay Area, CA'])
 const form = ref({
   name: '', category: '', metro_area: 'Bay Area, CA', city: '',
-  referred_by: auth.user ? [auth.user.first_name, auth.user.last_name].filter(Boolean).join(' ') || auth.user.username : '', description: '', phone: '', email: '', website: ''
+  submitted_by: '', referred_by: '', description: '', phone: '', email: '', website: ''
 })
 
 watch(categorySelect, val => {
@@ -170,6 +174,7 @@ async function submit() {
     }
     const { data } = await axios.post('/api/referrals', form.value)
     await axios.post(`/api/referrals/${data.id}/reviews`, {
+      reviewer_name: form.value.submitted_by,
       price_rating: Math.round(review.value.price_rating / 4 * 5),
       quality_rating: review.value.quality_rating,
     })
