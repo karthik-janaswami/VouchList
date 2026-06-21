@@ -5,3 +5,4 @@ backend/db/referrals.db-shm
 backend/db/referrals.db-wal
 .env
 *.local
+backend/logs/*.log
