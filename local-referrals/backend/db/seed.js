@@ -4,8 +4,7 @@ const data = require('./seed_data');
 const count = db.prepare('SELECT COUNT(*) as n FROM referrals').get().n;
 if (count > 0) {
   console.log(`Seed skipped — ${count} referrals already exist.`);
-  process.exit(0);
-}
+} else {
 
 const insert = db.prepare(`
   INSERT INTO referrals (name, category, description, phone, email, website, metro_area, city, referred_by)
@@ -20,4 +19,5 @@ try {
   db.exec('ROLLBACK');
   throw e;
 }
-console.log(`Seeded ${data.length} referrals.`);
+  console.log(`Seeded ${data.length} referrals.`);
+}
