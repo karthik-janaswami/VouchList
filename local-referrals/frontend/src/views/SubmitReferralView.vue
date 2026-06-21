@@ -175,7 +175,7 @@ async function submit() {
       price_rating: Math.round(review.value.price_rating / 4 * 5),
       quality_rating: review.value.quality_rating,
     })
-    router.back()
+    router.push(`/referrals/${data.id}`)
   } catch (err) {
     error.value = err.response?.data?.error || 'Failed to submit. Please try again.'
   } finally {
