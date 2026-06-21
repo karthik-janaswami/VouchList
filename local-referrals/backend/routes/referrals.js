@@ -59,11 +59,12 @@ router.post('/', optionalAuth, (req, res) => {
   if (!submitted_by || !submitted_by.trim()) {
     return res.status(400).json({ error: 'Your name is required' });
   }
+  const cols = ['name', 'category', 'description', 'phone', 'email', 'website', 'metro_area', 'city', 'referred_by', 'submitted_by'];
+  const vals = [name, category, description || null, phone || null, email || null, website || null, metro_area, city || null, referred_by || null, submitted_by.trim()];
+  if (req.user) { cols.unshift('user_id'); vals.unshift(req.user.id); }
   const result = db
-    .prepare(
-      'INSERT INTO referrals (user_id, name, category, description, phone, email, website, metro_area, city, referred_by, submitted_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-    )
-    .run(req.user?.id || null, name, category, description || null, phone || null, email || null, website || null, metro_area, city || null, referred_by || null, submitted_by.trim());
+    .prepare(`INSERT INTO referrals (${cols.join(', ')}) VALUES (${cols.map(() => '?').join(', ')})`)
+    .run(...vals);
   const referral = db.prepare('SELECT * FROM referrals WHERE id = ?').get(result.lastInsertRowid);
   res.status(201).json(referral);
 });

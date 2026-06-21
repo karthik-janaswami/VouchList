@@ -38,11 +38,12 @@ router.post('/', optionalAuth, (req, res) => {
   try {
     const overall = Math.round(((price_rating + quality_rating) / 2) * 10) / 10;
 
+    const cols = ['referral_id', 'rating', 'price_rating', 'quality_rating', 'comment', 'reviewer_name'];
+    const vals = [referralId, overall, price_rating, quality_rating, comment || null, reviewer_name.trim()];
+    if (req.user) { cols.push('user_id'); vals.push(req.user.id); }
     const result = db
-      .prepare(
-        'INSERT INTO reviews (referral_id, user_id, rating, price_rating, quality_rating, comment, reviewer_name) VALUES (?, ?, ?, ?, ?, ?, ?)'
-      )
-      .run(referralId, req.user?.id || null, overall, price_rating, quality_rating, comment || null, reviewer_name.trim());
+      .prepare(`INSERT INTO reviews (${cols.join(', ')}) VALUES (${cols.map(() => '?').join(', ')})`)
+      .run(...vals);
 
     recalcAverages(referralId);
 
