@@ -2,7 +2,7 @@
   <div class="page">
     <div class="card form-card">
       <RouterLink to="/" class="back-link">&larr; Back</RouterLink>
-      <h1>Add a Referral</h1>
+      <h1>Vouch for a Service</h1>
       <p class="subtitle">Share a trusted service provider with your community</p>
 
       <form @submit.prevent="submit">
@@ -106,7 +106,7 @@
         <div class="form-actions">
           <RouterLink to="/" class="btn btn-secondary">Cancel</RouterLink>
           <button type="submit" class="btn btn-primary" :disabled="submitting">
-            {{ submitting ? 'Submitting...' : 'Add Referral' }}
+            {{ submitting ? 'Submitting...' : 'Submit' }}
           </button>
         </div>
       </form>
