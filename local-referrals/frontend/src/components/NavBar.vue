@@ -31,7 +31,10 @@
       </div>
 
       <div class="nav-actions">
-        <RouterLink to="/submit" class="btn btn-primary btn-sm">+ Add</RouterLink>
+        <RouterLink to="/submit" class="add-btn" aria-label="Add a referral">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="add-label">Vouch</span>
+        </RouterLink>
       </div>
     </div>
   </header>
@@ -193,11 +196,23 @@ function handleLogout() {
   gap: 8px;
   justify-content: flex-end;
 }
-.nav-user {
-  font-size: 12px;
+.add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 16px 7px 12px;
+  border-radius: 100px;
+  background: var(--ink);
+  color: #fff;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--ink-soft);
+  text-decoration: none;
+  transition: all .18s var(--ease);
+  white-space: nowrap;
 }
+.add-btn:hover { background: var(--accent); text-decoration: none; }
+.add-btn svg { flex-shrink: 0; }
 
 @media (min-width: 700px) {
   .masthead-row {
@@ -209,8 +224,9 @@ function handleLogout() {
     max-width: 380px;
   }
 }
-@media (max-width: 699px) {
-  .nav-user { display: none; }
+@media (max-width: 399px) {
+  .add-label { display: none; }
+  .add-btn { padding: 8px; }
   .brand-sub { display: none; }
   .masthead-row {
     grid-template-columns: auto 1fr auto;
